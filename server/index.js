@@ -1,5 +1,6 @@
 const express = require('express');
-const path = require('path')
+const createError = require('http-errors');
+const path = require('path');
 const app = express();
 app.set('view engine', 'pug');
 if(app.get('env')==='development'){
@@ -14,7 +15,19 @@ app.get('/favicon.ico',(req, res, next)=>{
     return res.sendStatus(204);
 })
 
-app.use('/', routes())
+app.use('/', routes());
+
+app.use((req, res, next)=>{
+    return next(createError(404, 'file is not found'))
+});
+app.use((err, req, res, next)=>{
+    res.locals.message =err.message;
+    const status = err.status || 500;
+    res.locals.status =status;
+    res.locals.error =req.app.get('env')==='development'? err :{};
+    res.status(status);
+    return res.render('error');
+})
 
 
 app.listen(3000);
