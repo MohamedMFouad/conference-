@@ -2,15 +2,14 @@ const express = require('express');
 
 const router = express.Router();
 
-
-
-
-module.exports =()=>{
-    router.get('/',(req, res)=>{
+module.exports = () => {
+    router.get('/', (req, res, next) => {
         return res.render('speakers');
     });
-    router.get('/:name',(req, res)=>{
-        return res.send(`speakers detal page ${req.params.name}`);
+
+    router.get('/:name', (req, res, next) => {
+        return res.render('speakers/detail');
     });
-  return router  
+    
+    return router;
 };
