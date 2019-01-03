@@ -13,6 +13,9 @@ class SpeakerService{
             return {name: speaker.name , shortname: speaker.shortname};
         })
     }
+    async getListShort(){
+        
+    }
     async getData(){
         const data = await readFile(this.datafile,'utf8');
         if(!data) return [];

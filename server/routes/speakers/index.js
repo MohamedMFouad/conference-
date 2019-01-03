@@ -11,7 +11,7 @@ module.exports = () => {
 
     router.get('/:name', (req, res, next) => {
         return res.render('speakers/detail',{
-            page: req.params.name
+            page: req.params.name,
         });
     });
     
